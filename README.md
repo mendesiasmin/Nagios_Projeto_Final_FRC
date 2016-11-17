@@ -74,13 +74,13 @@ sudo apt-get install build-essential libgd2-xpm-dev apache2-utils unzip
 * Compilador GCC
 * Bibliotecas GD
 
-1. Criar o usuário Nagios e senha
+##### 1.Criar o usuário Nagios e senha
 
 $ sudo useradd -m nagios
 
 $ sudo passwd nagios
 
-2. Criar grupo Nagios
+##### 2.Criar grupo Nagios
 
 $ sudo groupadd nagcmd
 
