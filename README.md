@@ -1,6 +1,6 @@
 # Fundamentos de Redes de Computadores - FGA2016
-*Iasmin Santos Mendes, 14/0041940
-*João Paulo Bushe da Cruz, 14/0023348
+* Iasmin Santos Mendes, 14/0041940
+* João Paulo Bushe da Cruz, 14/0023348
 
 ## Projeto Final: Nagios
 
