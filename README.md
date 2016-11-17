@@ -26,17 +26,41 @@ A checagem de serviços é realizada de maneira paralelizada, assim, não há po
 O serviço de monitoração oferecido é definido em arquivos, abaixo encontra-se os principais arquivos de configuração e suas respectivas funcionalidades:
 
 * nagios.cfg
-* resource.cfg
-Armazena as variáveis que facilitam o acesso às chamadas aos plugins, podendo as mesmas serem personalizadas.
-* service.cfg
-Identifica os serviços que serão monitorados e as métricas aplicadas a cada um dos dos clientes.
-* host.cfg
-Define os clientes que serão monitorados, podendo também agrupá-los de forma a organizar melhor a visão lógica da rede e simplificar as notificações.
-* contact.cfg
-Parâmetros em relação ao responsáveis pela rede que receberão as notificações.
-* timeperiods.cfg
-Delimita o periódo de tempo no qual é válido realizar a verificação da rede e enviar notificações sobre o estado da mesma.
-* command.cfg
-Configuração dos comandos usados para monitoramento dos hosts.
-* CGI.cfg
-Arquivo de configuração das permissões de usuários
+* resource.cfg - Armazena as variáveis que facilitam o acesso às chamadas aos plugins, podendo as mesmas serem personalizadas.
+* service.cfg - Identifica os serviços que serão monitorados e as métricas aplicadas a cada um dos dos clientes.
+* host.cfg - Define os clientes que serão monitorados, podendo também agrupá-los de forma a organizar melhor a visão lógica da rede e simplificar as notificações.
+* contact.cfg - Parâmetros em relação ao responsáveis pela rede que receberão as notificações.
+* timeperiods.cfg - Delimita o periódo de tempo no qual é válido realizar a verificação da rede e enviar notificações sobre o estado da mesma.
+* command.cfg - Configuração dos comandos usados para monitoramento dos hosts.
+* CGI.cfg - Arquivo de configuração das permissões de usuários
+
+Os registros dos dados coletados durante o monitoramento podem ser armazenados em um banco de dados ou em um arquivo de texto no formato de log. Esta última opção caracteriza-se por ser mais simples de implementar, contudo é mais lenta no acesso aos dados para gerar os relatórios e mais árduo a extração de dados personalizados. O banco de dados, por sua natureza, caracteriza-se por ser mais eficaz no tratamento de muitos dados.
+
+A implementação de um software como tal facilita a resolução de problemas diversos como conectividade e integração de plataformas, além de permitir ao administrador da rede detectar falhas antes que os próprios usuários as percebam. Tornando mais eficiente o processo de gerenciamento e manutenção da rede.  O Nagios percorre a rede procurando possíveis warnings e estados críticos, podendo ser configurado para enviar mensagens via SMS, e-mail, pager ou outros meios para os administrados, ou mesmo para um grupo específico de responsáveis dependendo do problema encontrado.
+
+#### Serviços
+
+Os serviços ofertados por esta ferramenta ocorrem por meio de algortimos de verificação para avaliar o desempenho dos serviços prestados. O Nagios permite analisar tanto hosts quanto serviços  e realizar desde monitoramentos simples, como identificar se um dispositivo está conectado a rede por meio do PING, a monitoramentos mais complexos, como uso da CPU e outros hardwares em questão. Dentre os protocolos que podem ser moitorados pelo Nagios tem se como exemplos SMTP, POP3, HTTP, NNTP e ICMP. 
+
+Um protocolo particular que merece ser mencionado, é o SNMP – Simple Network Management Protocol que atua como um agente de monitoração. Neste protocolo a entidade de monitoramento envia um OID – Object Identifier para o equipamento monitorado, visando obter diversas informações sobre o seu funcionamento, dentre elas estão:
+
+* Uso de CPU;
+* Uso de Memória;
+* Configurações de rede;
+* Atividade de rede (Download e upload);
+* Usuários conectados;
+* Serviços ativos.
+
+Outras funcionalidades também oferecidas pela aplicação consistem na capacidade de definir a rede hierarquicamente, e de definir tratamentos de eventos para situações pré-determinadas ou para resoluções pró-ativas  de problemas. Além do mais, com base na toplogia da rede registrada pela aplicação, se ela identifica que um host só pode ser acessado por um determinado roteador da rede, e em algum momento este roteador cai, o Nagios reporta que o sistema está inatingível e para de gerar novos pedidos de verificação, para não sobrecarregar a rede.
+
+O Nagios tabém coordena todas as tarefas de monitoração, a periodicidade de verificação, limita o tempo de execução de uma tarefa, seleciona os usuários que serão notificados e gera relatórios. Os relatórios são contém o intervalo de duração de cada problema, a porcentagem de tempo que o serviço esteve em funcionamento, histograma de um dispositivo gerenciável e filtragem de alertas por grupos os horas de serviços.
+
+A aplicação dá também suporte a implementação de monitoramento distribuído ou redundante por meio do Nagios. O primeiro consiste em instalar vários servidores de monitoramento pela rede, os quais se comunicam com os agentes gerenciados acerca da coleta de dados, e enviam os mesmos para o servidor-mestre. Permite também monitoramento adaptativo, sendo possível alterar parâmetros de configuração sem ter que reinicializar a aplicação.
+
+#### Instalação e Configuração
+
+* Nagios 4.2.2
+* Nagios Plugins 2.1.2
+* Ubuntu 14
+
+Para instalar o Nagios é necessário ter previamente um servidor instalado, um compilador gcc, e as dependências com as Biblioteca GD.
