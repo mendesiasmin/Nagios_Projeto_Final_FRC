@@ -59,8 +59,18 @@ A aplicação dá também suporte a implementação de monitoramento distribuíd
 
 #### Instalação e Configuração
 
+Recursos Utilizados:
+
 * Nagios 4.2.2
 * Nagios Plugins 2.1.2
 * Ubuntu 14
 
-Para instalar o Nagios é necessário ter previamente um servidor instalado, um compilador gcc, e as dependências com as Biblioteca GD.
+Recursos Necessários para a instalação:
+
+* Servidor instalado
+* Compilador GCC
+* Bibliotecas GD
+
+
+
+
