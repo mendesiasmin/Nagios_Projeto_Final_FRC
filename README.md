@@ -74,6 +74,12 @@ sudo apt-get install build-essential libgd2-xpm-dev apache2-utils unzip
 * Compilador GCC
 * Bibliotecas GD
 
+##### 0.Fazer dowload do Nagios e do Plugin
+
+<https://www.nagios.org/>
+
+#### Instalaçao do Nagios
+
 ##### 1.Criar o usuário Nagios e senha
 
 $ sudo useradd -m nagios
@@ -87,4 +93,126 @@ $ sudo groupadd nagcmd
 $ sudo usermod -a -G nagcmd nagios
 
 $ sudo usermod -a -G nagcmd www-data
+
+##### 3.Descompactar o arquivo nagios-4.1.1.tar.gz
+
+$ tar xzf nagios-4.1.1.tar.gz
+
+##### 4.Entrar no diretório criado
+
+$ cd nagios-4.1.1/
+
+##### 5.Executar os comandos de compilação e execução
+
+$ sudo ./configure --with-command-group=nagcmd
+
+$ sudo make all
+
+$ sudo make install
+
+$ sudo make install-init
+
+$ sudo make install-config
+
+$ sudo make install-commandmode
+
+##### 6.Instalar a interface web
+
+$ sudo make install-webconf
+
+$ sudo /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-enabled/nagios.conf
+
+##### 7.Confira se o arquivo nagios.conf está em /etc/apache2/sites-enabled
+
+$ sudo ls -l /etc/apache2/sites-enabled/
+
+##### 8. Crie a conta nagiosadmin para acessar a interface web
+
+$ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+##### 9.Reinicie o apache
+
+$ sudo service apache2 restart
+
+#### Instalaçao do Plugin
+
+##### 1.Descompacte o arquivo do plugin
+
+$ tar xzf nagios-plugins-2.1.1.tar.gz
+
+##### 2.Entre no diretórido criado
+
+$ cd nagios-plugins-2.1.1/
+
+##### 3.Compile e execute o instalador
+
+$ sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagios
+
+$ sudo make
+
+$ sudo make install
+
+#### Configuração do Nagios
+
+##### 1. Editar o arquivo contacts.conf
+Acesse com um editor o arquivo **contacts.conf** e configure o Nagios para o respectivo e-mail do administrador.
+
+$ sudo vim /usr/local/nagios/etc/objects/contacts.cfg
+
+##### 2.Habilitar o modo CGI do apache
+
+$ sudo a2enmod rewrite
+
+$ sudo a2enmod cgi
+
+##### 3.Reiniciar o Apache
+
+$ sudo service apache2 restart
+
+##### 4.Verificar se não existe erros
+
+$ sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+##### 5.Caso não tenha erros, iniciar o nagios
+
+$ sudo service nagios start
+
+##### 6.É possivel colocá-lo para iniciar automaticamente com a linha:
+
+$ sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
+
+##### 7.Se houver alguma mensagem de erro no comando passado, copie /etc/init.d/skelton para o arquivo /etc/init.d/nagios
+
+$ sudo cp /etc/init.d/skeleton /etc/init.d/nagios
+
+##### 8.Editar o arquivo:
+
+$ sudo nano /etc/init.d/nagios
+
+Adicionar as linhas: 
+
+
+
+DESC="Nagios"
+
+NAME=nagios
+
+DAEMON=/usr/local/nagios/bin/$NAME
+
+DAEMON_ARGS="-d /usr/local/nagios/etc/nagios.cfg"
+
+PIDFILE=/usr/local/nagios/var/$NAME.lock
+
+##### 9.Altere as permissões do arquivo nagios
+
+$ sudo chmod +x /etc/init.d/nagios
+
+##### 10.Reiniciar o serviço do Nagios
+
+
+
+
+
+
+
 
