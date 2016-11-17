@@ -207,12 +207,8 @@ PIDFILE=/usr/local/nagios/var/$NAME.lock
 
 $ sudo chmod +x /etc/init.d/nagios
 
-##### 10.Reiniciar o serviço do Nagios
+##### 10.Iniciar o serviço do Nagios
 
-
-
-
-
-
+$ sudo /etc/init.d/nagios start
 
 
